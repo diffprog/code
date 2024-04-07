@@ -85,7 +85,3 @@ plt.xlabel(r'$\delta$', size=16)
 plt.ylabel('Approximation error', size=16)
 plt.tight_layout()
 plt.show()
-
-
-
-
