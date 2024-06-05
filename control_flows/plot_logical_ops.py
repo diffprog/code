@@ -51,7 +51,7 @@ def plot_logic(relaxation_type, fig_title=None):
     X, Y = np.meshgrid(x, y)
     Z = op(X, Y)
 
-    im = ax.pcolormesh(X, Y, Z, cmap=palette)
+    im = ax.pcolormesh(X, Y, Z, cmap=palette, linewidth=0, rasterized=True)
     ax.contour(X, Y, Z, 10, interpolation='none', linestyles='dotted', alpha=0.5, cmap='Greys_r')
 
     ax.locator_params(axis='y', nbins=3)
