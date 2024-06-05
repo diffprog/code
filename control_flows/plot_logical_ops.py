@@ -46,13 +46,27 @@ def plot_logic(relaxation_type, fig_title=None):
   fig, axs = plt.subplots(1, 2, figsize=(2*4.6, 4))
   for ax, op, title in zip(axs, ops, ['And operator', 'Or operator']):
     palette = sns.color_palette('rocket', as_cmap=True)
+    discrete_palette = sns.color_palette('rocket')
     x = np.linspace(0, 1, 100)
     y = np.linspace(0, 1, 100)
     X, Y = np.meshgrid(x, y)
     Z = op(X, Y)
 
+    # heatmap
     im = ax.pcolormesh(X, Y, Z, cmap=palette, linewidth=0, rasterized=True)
+
+    # contour
     ax.contour(X, Y, Z, 10, interpolation='none', linestyles='dotted', alpha=0.5, cmap='Greys_r')
+
+    # corners
+    ax.plot(0, 0, 'o', markersize=10, color=discrete_palette[0], clip_on=False, zorder=100)
+    ax.plot(1, 1, 'o', markersize=10, color=discrete_palette[-1], clip_on=False, zorder=100)
+    if title == 'And operator':
+      color_mixed_corners = discrete_palette[0]
+    else:
+      color_mixed_corners = discrete_palette[-1]
+    ax.plot(1, 0, 'o', markersize=10, color=color_mixed_corners, clip_on=False, zorder=100)
+    ax.plot(0, 1, 'o', markersize=10, color=color_mixed_corners, clip_on=False, zorder=100)  
 
     ax.locator_params(axis='y', nbins=3)
     ax.locator_params(axis='x', nbins=3)
@@ -64,7 +78,7 @@ def plot_logic(relaxation_type, fig_title=None):
   fig.tight_layout()
   if fig_title is not None:
     fig.suptitle(fig_title, y=1.02)
-  fig.savefig('and_or_ops_' + relaxation_type + '.pdf', format='pdf', bbox_inches='tight')
+  # fig.savefig('and_or_ops_' + relaxation_type + '.pdf', format='pdf', bbox_inches='tight')
 
 
 plot_logic('probabilistic')
