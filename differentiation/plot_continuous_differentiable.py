@@ -12,7 +12,7 @@ fig, axs = plt.subplots(1, 3, figsize=(3*4, 4))
 n = 100
 xs = np.linspace(-2, 2, n)
 
-hv_ys = np.heaviside(xs, 0)
+hv_ys = np.heaviside(xs, 1)
 mid_point = int(n/2)
 hv_ys[mid_point] = np.nan
 axs[0].plot(xs[mid_point], 1, 'o', color='tab:blue')
