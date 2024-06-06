@@ -1,6 +1,18 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
-import matplotlib.collections as mcoll
 import numpy as np
 import seaborn as sns
 
@@ -9,51 +21,6 @@ rcParams.update({
     'lines.linewidth': 4,
     'mathtext.fontset': 'dejavusans',
 })
-
-
-def colorline(
-    x,
-    y,
-    z=None,
-    cmap=plt.get_cmap('copper'),
-    norm=plt.Normalize(0.0, 1.0),
-    linewidth=3,
-    alpha=1.0,
-    ax=None,
-):
-  """Plot a colored line.
-
-  http://nbviewer.ipython.org/github/dpsanders/matplotlib-examples/blob/master/colorline.ipynb
-  http://matplotlib.org/examples/pylab_examples/multicolored_line.html
-
-  Plot a colored line with coordinates x and y Optionally specify colors in the 
-  array z.
-  Optionally specify a colormap, a norm function and a line width
-  """
-
-  # Default colors equally spaced on [0,1]:
-  if z is None:
-    z = np.linspace(0.0, 1.0, len(x))
-
-  # Special case if a single number:
-  if not hasattr(
-      z, '__iter__'
-  ):  # to check for numerical input -- this is a hack
-    z = np.array([z])
-
-  z = np.asarray(z)
-
-  points = np.array([x, y]).T.reshape(-1, 1, 2)
-  segments = np.concatenate([points[:-1], points[1:]], axis=1)
-  lc = mcoll.LineCollection(
-      segments, array=z, cmap=cmap, norm=norm, linewidth=linewidth, alpha=alpha
-  )
-
-  if ax is None:
-    ax = plt.gca()
-  ax.add_collection(lc)
-
-  return lc
 
 
 fig, axs = plt.subplots(1, 2, figsize=(4 * 2, 4))
@@ -158,11 +125,7 @@ for i, u in enumerate(np.linspace(*conj_domain, num_tangents)[1:-1]):
   )
   # Intercepts are highlighted by points along the function now
   ax.plot(u, conj_fun(u), 'o', color=palette[i])
-# Make x-axis as a gradient color line to illustrate continuous possibilities of
-# tangents
-colorline(
-    us, np.zeros_like(us), cmap=plt.get_cmap('plasma'), ax=ax, linewidth=8
-)
+
 # Appropriate zooms
 ax.set_ylim(bottom=-0.01)
 ax.set_xlim(us[0], us[-1])
@@ -175,4 +138,5 @@ ax.set_ylabel('$f^*(v)$', fontsize=16)
 ax.locator_params(axis='y', nbins=3)
 
 fig.tight_layout()
+# fig.savefig('convex_conjugate.pdf', format='pdf', bbox_inches='tight')
 plt.show()
