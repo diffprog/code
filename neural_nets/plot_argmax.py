@@ -117,7 +117,7 @@ def plot_fn(fn, title):
     ax.axis('off')
   fig.suptitle(title, y=0.95)
   fig.tight_layout()
-  fig.savefig(fn.__name__ + '.pdf', format='pdf', bbox_inches='tight')
+  # fig.savefig(fn.__name__ + '.pdf', format='pdf', bbox_inches='tight')
 
 
 def argmax(u, coord):
