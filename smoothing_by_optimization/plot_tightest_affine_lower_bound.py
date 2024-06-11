@@ -23,10 +23,10 @@ rcParams.update({
 })
 
 
-fig, axs = plt.subplots(1, 2, figsize=(4 * 2, 4))
+fig, ax = plt.subplots(1, 1, figsize=(6, 4))
 
-num_tangents = 8
-palette = sns.color_palette('plasma', num_tangents)
+num_lines = 4
+palette = sns.color_palette('plasma', num_lines)
 
 
 def fun(x):
@@ -39,7 +39,6 @@ def conj_fun(u):
 
 ###############
 # Envelope plot
-ax = axs[0]
 xs = np.linspace(0.0, 1.0, 100)
 conj_domain = (-2.0, 1.0)
 
@@ -48,18 +47,19 @@ ys = fun(xs)
 ax.plot(xs, ys, color='k')
 
 # Plot tangents
-for i, u in enumerate(np.linspace(*conj_domain, num_tangents)[1:-1]):
-  ys = u * xs - conj_fun(u)
-  # Plot tangent
+u = 0.7
+for i, eps in enumerate(np.linspace(0, 0.5, num_lines)):
+  ys = u * xs - conj_fun(u) - eps
+  # Plot affine
   ax.plot(xs, ys, '--', color=palette[i], linewidth=2)
   # Plot intercept
-  ax.plot(0.0, -conj_fun(u), 'o', color=palette[i])
-  if i == num_tangents - 3:
+  if i == 0:
+    ax.plot(0.0, -conj_fun(u), 'o', color=palette[i])
     # Add legend to intercept
     ax.annotate(
         '$-f^*(v)$',
         (0, -conj_fun(u)),
-        xytext=(-0.3, -conj_fun(u) - 0.12),
+        xytext=(-0.2, -conj_fun(u) - 0.12),
         color=palette[i],
         fontsize=16,
     )
@@ -87,7 +87,7 @@ for i, u in enumerate(np.linspace(*conj_domain, num_tangents)[1:-1]):
     )
 
 # Approriate zoom in y axis
-ax.set_ylim(-1.2, 0.0)
+ax.set_ylim(-1.4, 0.0)
 
 # Set y_axis to the left
 ax.spines['left'].set_position(('data', 0))
@@ -101,42 +101,15 @@ ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
 # Less ticks
-ax.locator_params(axis='y', nbins=3)
-ax.locator_params(axis='x', nbins=3)
+ax.locator_params(axis='y', nbins=2)
+ax.locator_params(axis='x', nbins=2)
 
 # Labels
 ax.set_xlabel('$u$', fontsize=16)
 ax.set_ylabel('$f\,(u)$', fontsize=16)
-
-#########################
-# Conjugate function plot
-ax = axs[1]
-
-# Plot conjugate function
-us = np.linspace(*conj_domain, 100)
-vs = conj_fun(us)
-ax.plot(us, vs, color='k')
-
-# Higlight points corresponding to the tangents computed previously
-for i, u in enumerate(np.linspace(*conj_domain, num_tangents)[1:-1]):
-  # Vertical lines instead of the tangents ince now we are in conjugate domain
-  ax.vlines(
-      u, 0, conj_fun(u), color=palette[i], linestyles='dashed', linewidth=2
-  )
-  # Intercepts are highlighted by points along the function now
-  ax.plot(u, conj_fun(u), 'o', color=palette[i])
-
-# Appropriate zooms
-ax.set_ylim(bottom=-0.01)
-ax.set_xlim(us[0], us[-1])
-
-# Add labels
-ax.set_xlabel('$v$', fontsize=16)
-ax.set_ylabel('$f^*(v)$', fontsize=16)
-
-# Less ticks
-ax.locator_params(axis='y', nbins=3)
+# ax.get_xaxis().set_ticks([])
+ax.get_yaxis().set_ticks([])
 
 fig.tight_layout()
-# fig.savefig('convex_conjugate.pdf', format='pdf', bbox_inches='tight')
+# fig.savefig('tightest_affine_lower_bound.pdf', format='pdf', bbox_inches='tight')
 plt.show()
