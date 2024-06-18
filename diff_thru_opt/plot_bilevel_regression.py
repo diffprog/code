@@ -92,8 +92,6 @@ for idx, sigma in enumerate([0.1 * true_sigma, 10 * true_sigma, true_sigma]):
   ax.locator_params(axis='y', nbins=3)
   ax.locator_params(axis='x', nbins=3)
   ax.set_ylim(-10, 5)
-  ax.set_ylabel('y')
-  ax.set_xlabel('x')
 
 ax.legend()
 fig.tight_layout()
