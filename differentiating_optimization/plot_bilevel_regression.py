@@ -95,5 +95,4 @@ for idx, sigma in enumerate([0.1 * true_sigma, 10 * true_sigma, true_sigma]):
 
 ax.legend()
 fig.tight_layout()
-# fig.savefig('bilevel_illustration.pdf', format='pdf')
 plt.show()
