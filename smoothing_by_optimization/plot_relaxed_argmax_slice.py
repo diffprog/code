@@ -45,7 +45,7 @@ def projection_simplex(v, z=1):
   return w
 
 
-def sparse_argmax(u, coord):
+def sparseargmax(u, coord):
   z = np.zeros((u.shape[0], u.shape[1]))
   for i in range(u.shape[0]):
     for j in range(u.shape[1]):

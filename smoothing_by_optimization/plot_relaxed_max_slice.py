@@ -80,7 +80,7 @@ def plot_fn(fn, title):
   ax.locator_params(axis='x', nbins=3)
   ax.set_title(title, y=1.05)
   fig.tight_layout()
-  fig.savefig(fn.__name__ + '.pdf', format='pdf', bbox_inches='tight')
+  # fig.savefig(fn.__name__ + '.pdf', format='pdf', bbox_inches='tight')
   plt.show()
 
 plot_fn(max, r'$\mathrm{max}(u_1, u_2, 0)$')
