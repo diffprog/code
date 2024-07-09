@@ -61,7 +61,7 @@ fig.legend(
     bbox_to_anchor=(0.5, -0.1)
 )
 fig.tight_layout()
-fig.savefig('global_vs_local_smoothing.pdf', format='pdf', bbox_inches='tight')
+# fig.savefig('global_vs_local_smoothing.pdf', format='pdf', bbox_inches='tight')
 
 plt.show()
 
