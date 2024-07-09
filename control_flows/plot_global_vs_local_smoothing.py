@@ -66,7 +66,7 @@ fig.tight_layout()
 plt.show()
 
 # For curiosity, compute total variations
-sigma = 1.
-local_total_var = np.mean(np.abs(fun(xs) - local_smooth_fun(xs, sigma)))
-global_total_var = np.mean(np.abs(fun(xs) - global_smooth_fun(xs, sigma)))
+sigma = 2.
+local_total_var = np.mean(np.abs(fun(xs) - local_smooth_fun(xs, sigma))**2)
+global_total_var = np.mean(np.abs(fun(xs) - global_smooth_fun(xs, sigma))**2)
 print(f'local total var: {local_total_var}, global total var: {global_total_var}')

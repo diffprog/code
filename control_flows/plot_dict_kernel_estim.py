@@ -32,7 +32,10 @@ fig, ax = plt.subplots(1)
 
 ks = np.linspace(0, 1, 100)
 ax.scatter(keys, values, color=palette[0], marker='x', s=70, zorder=2, label='Key-value pairs')
-ax.plot(ks, [kernel_smoother(k, keys, values, 0.07) for k in ks], color=palette[1], zorder=1, label='Kernel estimator')
+margins = [(0.02, -0.025), (0.02, 0.01), (0.02, -0.035), (0.02, -0.025)]
+for i, (ki, vi, margin) in enumerate(zip(keys, values, margins)):
+  ax.annotate(f'$(k_{i+1}, v_{i+1})$', (ki, vi), (ki+margin[0], vi+margin[1]))
+ax.plot(ks, [kernel_smoother(k, keys, values, 0.07) for k in ks], color=palette[1], zorder=1, label='Kernel Estimator')
 ax.set_xlabel('Keys')
 ax.set_ylabel('Values')
 ax.set_ylim(bottom=0.)
