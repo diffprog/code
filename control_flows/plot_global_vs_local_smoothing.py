@@ -19,7 +19,7 @@ import numpy as np
 
 rcParams.update({
     'font.size': 16,
-    'lines.linewidth': 2,
+    'lines.linewidth': 3,
     'mathtext.fontset': 'dejavusans',
 })
 
@@ -46,7 +46,7 @@ fig, axs = plt.subplots(1, 3, figsize=(12, 4))
 for ax, sigma in zip(axs, [1.0, 0.5, 0.1]):
   ax.plot(xs, fun(xs), label='Orignal function')
   ax.plot(xs, local_smooth_fun(xs, sigma), label='Locally smoothed')
-  ax.plot(xs, global_smooth_fun(xs, sigma), label='Globally smoothed')
+  ax.plot(xs, global_smooth_fun(xs, sigma), label='Globally smoothed', ls="--")
   ax.set_title(f'$\sigma={sigma}$')
   ax.legend()
   handles, labels = ax.get_legend_handles_labels()
@@ -61,7 +61,7 @@ fig.legend(
     bbox_to_anchor=(0.5, -0.1)
 )
 fig.tight_layout()
-# fig.savefig('global_vs_local_smoothing.pdf', format='pdf', bbox_inches='tight')
+#fig.savefig('global_vs_local_smoothing.pdf', format='pdf', bbox_inches='tight')
 
 plt.show()
 
