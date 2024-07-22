@@ -68,12 +68,14 @@ for c, func, name, ls in zip(
     axs[0].plot(xs, func(xs), label=name, c=c, ls=ls)
 
 axs[0].set_title('Soft equal zero')
+axs[0].locator_params(axis='y', nbins=3)
 
 for func, name, ls in zip([heaviside, logistic, gaussian_cdf],
                           ['Hard', 'Logistic', 'Gaussian'],
                           [None, None, "--"]):
     axs[1].plot(xs, func(xs), label=name, ls=ls)
 
+axs[1].locator_params(axis='y', nbins=3)
 axs[1].set_title('Soft greater than zero')
 axs[1].legend(loc="lower right")
 
