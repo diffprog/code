@@ -75,13 +75,13 @@ def plot_predictor(x, y, noise, sigma, frac_train, eps, ax, idx):
     ax.plot(
         xs,
         ys,
-        label=f'$w^*(\lambda_{idx+1})$',
+        label=f'$w^\star(\lambda_{idx+1})$',
         color=palette[idx],
         alpha=0.6,
         linestyle='dashed',
     )
   else:
-    ax.plot(xs, ys, label=f'$w^*(\lambda^*)$', color=palette[idx])
+    ax.plot(xs, ys, label=f'$w^\star(\lambda^\star)$', color=palette[idx])
 
 
 x, y, noise = make_data(n, true_sigma)
