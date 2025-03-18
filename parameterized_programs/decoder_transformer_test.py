@@ -32,12 +32,11 @@ from nanogpt import MLP
 
 B = 2  # Batch size
 L = 5  # Maximum sequence length
-D = 3  # Embedding size
+D = 12  # Embedding size, must be divisible by H
 H = 4  # Number of heads
-C = D * H  # Dimensionality of matrices W_Q, W_K, W_V
 V = 10  # Vocabulary size
 
-config = GPTConfig(n_embd=C, n_head=H, block_size=L, vocab_size=V, bias=False)
+config = GPTConfig(n_embd=D, n_head=H, block_size=L, vocab_size=V, bias=False)
 
 
 def get_layer_norm_params(ln):
@@ -45,9 +44,9 @@ def get_layer_norm_params(ln):
 
 
 def test_layer_norm():
-  X = torch.randn(B, L, C)
-  weight = torch.randn(C)
-  bias = torch.randn(C)
+  X = torch.randn(B, L, D)
+  weight = torch.randn(D)
+  bias = torch.randn(D)
   eps = 1e-5
   LN = F.layer_norm(X, weight.shape, weight, bias, eps)
   LN2 = layer_norm(X.numpy(), weight.numpy(), bias.numpy(), eps)
@@ -56,9 +55,9 @@ def test_layer_norm():
 
 def get_attention_params(attn):
   W = attn.c_attn.weight.detach().numpy()
-  return dict(W_Q=W[:C].T,
-              W_K=W[C:2*C].T,
-              W_V=W[2*C:3*C].T,
+  return dict(W_Q=W[:D].T,
+              W_K=W[D:2*D].T,
+              W_V=W[2*D:3*D].T,
               H=attn.n_head)
 
 
@@ -66,7 +65,7 @@ def test_causal_self_attention():
   attn = CausalSelfAttention(config)
   params = get_attention_params(attn)
 
-  X = torch.randn(B, L, C)
+  X = torch.randn(B, L, D)
   Y = attn.forward(X)
   Y2 = causal_self_attention(X.numpy(), **params)
 
@@ -79,7 +78,7 @@ def get_mlp_params(model):
 
 
 def test_mlp():
-  X = torch.randn(B, L, C)
+  X = torch.randn(B, L, D)
 
   model = MLP(config)
   params = get_mlp_params(model)
@@ -98,7 +97,7 @@ def get_block_params(model):
 
 
 def test_block():
-  X = torch.randn(B, L, C)
+  X = torch.randn(B, L, D)
 
   model = Block(config)
   params = get_block_params(model)
