@@ -16,8 +16,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def heaviside(x):
-    return np.where(x > 0, 1, 0)
+def heaviside(u):
+    return np.where(u > 0, 1, 0)
+
+
+def logistic(u):
+  return 1. / (1 + np.exp(-u))
 
 
 xs = np.linspace(-3, 3, 100)
@@ -31,6 +35,8 @@ plt.rcParams.update(
     })
 
 plt.figure()
-plt.plot(xs, heaviside(xs))
-plt.title("Heaviside step function")
+plt.plot(xs, heaviside(xs), label="Binary")
+plt.plot(xs, logistic(xs), label="Logistic")
+plt.title("Binary step and logistic functions")
+plt.legend(loc="best")
 plt.show()
