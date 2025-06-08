@@ -26,7 +26,7 @@ ax1.set_zlim(0, np.max(Z_max) + 1)
 cset = ax1.contour(X, Y, Z_max, zdir='z', offset=0, cmap=cmap)
 
 ax1.view_init(elev=20, azim=-170)
-ax1.set_title(r'$\max$')
+ax1.set_title(r'$\max$', y=0.98)
 ax1.set_xlabel(r'$u_2$')
 ax1.set_ylabel(r'$u_1$')
 ax1.set_zlabel(r'$\mathrm{max}(u_1, u_2)$')
@@ -39,14 +39,14 @@ ax1.zaxis.set_rotate_label(False)
 ax1.zaxis.label.set_rotation(92)
 
 ax2 = fig.add_subplot(122, projection='3d')
-surf1 = ax2.plot_surface(X, Y, Z_lse, cmap=cmap, edgecolor='black', 
+surf1 = ax2.plot_surface(X, Y, Z_lse, cmap=cmap, edgecolor='black',
                          linewidth=0.5, rstride=2, cstride=2)
 
 ax2.set_zlim(0, np.max(Z_lse) + 1)
 cset = ax2.contour(X, Y, Z_lse, zdir='z', offset=0, cmap=cmap)
 
 ax2.view_init(elev=20, azim=-170)
-ax2.set_title(r'$\mathrm{softmax}$')
+ax2.set_title(r'$\mathrm{softmax}$', y=0.98)
 ax2.set_xlabel(r'$u_2$')
 ax2.set_ylabel(r'$u_1$')
 ax2.set_zlabel(r'$\mathrm{softmax}(u_1, u_2)$')
@@ -58,7 +58,7 @@ ax2.zaxis.pane.fill = False
 ax2.zaxis.set_rotate_label(False)
 ax2.zaxis.label.set_rotation(92)
 
-plt.tight_layout()
+plt.subplots_adjust(wspace=-0.1)
 plt.show()
 
-# fig.savefig('max_softmax_3d' + '.pdf', format='pdf', bbox_inches='tight')
+#fig.savefig('max_softmax_3d' + '.pdf', format='pdf', bbox_inches='tight')
