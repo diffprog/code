@@ -89,7 +89,7 @@ def plot_fn(fn, title):
   plt.show()
 
 plot_fn(argmax, r'$\boldsymbol{\pi} = \mathrm{argmax}(u_1, u_2, 0)$')
-plot_fn(softargmax, r'$\boldsymbol{\pi} = \mathrm{softargmax}(u_1 u_2, 0)$')
-plot_fn(sparse_argmax, r'$\boldsymbol{\pi} = \mathrm{sparseargmax}(u_1 u_2, 0)$')
+plot_fn(softargmax, r'$\boldsymbol{\pi} = \mathrm{softargmax}(u_1, u_2, 0)$')
+plot_fn(sparse_argmax, r'$\boldsymbol{\pi} = \mathrm{sparseargmax}(u_1, u_2, 0)$')
 
 
